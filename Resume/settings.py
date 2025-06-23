@@ -44,11 +44,14 @@ INSTALLED_APPS = [
     'core',
     'portfolio',
     'rest_framework',
+    'corsheaders',
 ]
 
 
 
 MIDDLEWARE = [
+    'corsheaders.middleware.CorsMiddleware',
+    'core.middleware.DynamicCorsMiddleware',  # Özel CORS kontrolü en üstte
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.locale.LocaleMiddleware',
@@ -145,3 +148,14 @@ EMAIL_HOST_PASSWORD = 'ujls fvzr gogf msjp'  # Gmail'de uygulama şifresi
 STATICFILES_DIRS = [
     BASE_DIR / 'core/static'
 ]
+
+REST_FRAMEWORK = {
+    'DEFAULT_AUTHENTICATION_CLASSES': [
+        'rest_framework.authentication.BasicAuthentication',
+    ],
+    'DEFAULT_PERMISSION_CLASSES': [
+        'rest_framework.permissions.IsAuthenticated',
+    ],
+}
+
+CORS_ALLOW_ALL_ORIGINS = True
