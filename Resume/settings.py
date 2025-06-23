@@ -30,7 +30,9 @@ SECRET_KEY = os.getenv('SECRET_KEY')
 DEBUG = os.getenv('DEBUG') == 'True'
 
 
-ALLOWED_HOSTS = ['.onrender.com', 'kaanakboga.onrender.com', '127.0.0.1', '*']
+
+ALLOWED_HOSTS = ['.onrender.com', 'kaanakboga.onrender.com', '127.0.0.1', 'https://kaanakboga.pythonanywhere.com']
+
 
 
 
