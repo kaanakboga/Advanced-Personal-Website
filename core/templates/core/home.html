@@ -1,0 +1,159 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %}Kaan Akboğa{% endblock %}
+
+{% block content %}
+
+
+
+
+<section id="home" data-theme="dark">
+    <div class="section-content">
+        <h1>Hi, I'm Kaan Akboğa</h1>
+        <p class="typed-text"><span id="typed"></span></p>
+    </div>
+</section>
+
+<section id="about" class="about-section" data-theme="light">
+  <div class="about-container">
+    <div class="about-image">
+      <img src="{% static 'core/images/profile1.jpg' %}" alt="Kaan Akboğa">
+    </div>
+
+    <div class="about-info">
+      <h2>About <span>Me</span></h2>
+      <h3><span>Backend</span> Developer</h3>
+      <ul class="info-list">
+        <li><strong>University:</strong> Piri Reis University</li>
+        <li><strong>Location:</strong> Kocaeli, Türkiye</li>
+        <li><strong>Freelance:</strong> Available</li>
+        <li><strong>Phone:</strong> +90 542 328 80 12</li>
+      </ul>
+
+      <p class="about-paragraph">
+        I'm a backend developer with a strong foundation in systems programming and a growing passion for game development.
+        I value clean, efficient code and enjoy bringing ideas to life through both logic and design.
+        Whether it's building scalable software or exploring visual creativity, I'm driven by curiosity and craftsmanship.
+      </p>
+    </div>
+  </div>
+</section>
+
+<section id="skills" data-theme="dark">
+  <div class="section-content">
+    <h2>My Skills</h2>
+    <div class="skills-container">
+      {% for skill in skills %}
+        <div class="skill-bar">
+          <span class="skill-name">{{ skill.name }}</span>
+          <div class="progress-bar">
+            <div class="progress-fill" data-percentage="{{ skill.percentage }}"></div>
+          </div>
+        </div>
+      {% endfor %}
+    </div>
+  </div>
+</section>
+
+
+<section id="services" data-theme="light">
+  <div class="section-content">
+    <h2>My Services</h2>
+    <div class="services-grid">
+      {% for service in services %}
+        <div class="service-card">
+          <i class="fas {{ service.icon }}"></i>
+          <h3>{{ service.title }}</h3>
+          <p>{{ service.description }}</p>
+        </div>
+      {% endfor %}
+    </div>
+  </div>
+</section>
+
+
+
+<section id="portfolio">
+  <div class="section-content">
+    <h2>My Projects</h2>
+    <div class="project-grid">
+      {% for project in projects %}
+        <a href="{% url 'project_detail' project.slug %}" class="project-card">
+
+          <!-- İkon -->
+          <i class="fas {{ project.icon }} project-icon"></i>
+
+          <!-- Proje İsmi -->
+          <h3>{{ project.title }}</h3>
+        </a>
+      {% endfor %}
+    </div>
+  </div>
+</section>
+
+
+
+<section id="contact" data-theme="light">
+  <div class="contact-container">
+    <div class="contact-box">
+
+      <!-- Sol Taraf (İletişim Bilgileri) -->
+      <div class="contact-info">
+          <div class="info-block">
+          <i class="fas fa-map-marker-alt"></i>
+          <p>Kocaeli, Turkey</p>
+          </div>
+        <div class="info-block">
+          <i class="fas fa-phone-alt"></i>
+          <p>+90 542 328 80 12</p>
+        </div>
+        <div class="info-block">
+          <i class="fas fa-envelope"></i>
+          <p>akbogakaan00@gmail.com</p>
+        </div>
+      </div>
+
+      <!-- Sağ Taraf (Form) -->
+      <div class="contact-form">
+        <h2>Get in Touch</h2>
+        <form action="{% url 'contact' %}" method="post">
+          {% csrf_token %}
+          <input type="text" name="name" placeholder="Your name" required>
+          <input type="email" name="email" placeholder="Your email" required>
+          <textarea name="message" placeholder="Your message" required></textarea>
+<button type="submit" class="contact-button">Send Message</button>
+        </form>
+      </div>
+
+    </div>
+  </div>
+
+
+</section>
+
+<script>
+document.addEventListener("DOMContentLoaded", function () {
+    const skillsSection = document.getElementById("skills");
+    const progressFills = document.querySelectorAll(".progress-fill");
+
+    function animateBars() {
+        const rect = skillsSection.getBoundingClientRect();
+        if (rect.top < window.innerHeight && rect.bottom > 0) {
+            progressFills.forEach(fill => {
+                const percentage = fill.getAttribute("data-percentage");
+                fill.style.width = percentage + "%";
+            });
+        } else {
+            progressFills.forEach(fill => {
+                fill.style.width = "0";
+            });
+        }
+    }
+
+    window.addEventListener("scroll", animateBars);
+});
+
+</script>
+
+
+{% endblock %}

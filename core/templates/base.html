@@ -1,0 +1,178 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+
+    <meta charset="UTF-8">
+    <title>{% block title %}My Resume{% endblock %}</title>
+
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+
+    <!-- AOS -->
+    <link rel="stylesheet" href="https://unpkg.com/aos@next/dist/aos.css" />
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="{% static 'core/css/style.css' %}">
+
+<style>
+.project-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 20px;
+  margin-top: 30px;
+}
+
+/* ABOUT section içine yapışık olacak */
+#about {
+    position: relative;  /* <- önemli */
+}
+
+/* Sidebar konumu about'a göre belirlenecek */
+.social-sidebar {
+    position: absolute;
+    bottom: 20px;
+    left: 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    z-index: 10;
+}
+
+.social-sidebar a img {
+    width: 30px;
+    height: 30px;
+    opacity: 0.8;
+    transition: transform 0.2s, opacity 0.2s;
+}
+
+.social-sidebar a img:hover {
+    transform: scale(1.15);
+    opacity: 1;
+}
+</style>
+
+</head>
+
+<body>
+
+<!-- Navbar -->
+<nav class="navbar">
+    <div class="container">
+        <a class="logo" href="/#">Kaan Akboğa</a>
+<ul class="nav-links">
+    <li><a href="/#about">About</a></li>
+    <li><a href="/#skills">Skills</a></li>
+    <li><a href="/#services">Services</a></li>
+    <li><a href="/#portfolio">Portfolio</a></li>
+    <li><a href="/#contact">Contact</a></li>
+</ul>
+
+
+    </div>
+</nav>
+
+<!-- Sayfa İçeriği -->
+<main>
+    {% block content %}{% endblock %}
+</main>
+
+<!-- Sosyal Medya Sabit -->
+{% if request.resolver_match.url_name != 'project_detail' %}
+  <div id="socialSidebar" class="social-sidebar">
+    <a href="https://github.com/kaanakboga" target="_blank"><img src="{% static 'core/icons/github.png' %}" alt="GitHub"></a>
+    <a href="https://linkedin.com/in/kaan-akboga" target="_blank"><img src="{% static 'core/icons/linkedin.png' %}" alt="LinkedIn"></a>
+    <a href="https://www.instagram.com/kaanakbogacs/" target="_blank"><img src="{% static 'core/icons/instagram.png' %}" alt="Instagram"></a>
+    <a href="https://x.com/vesphre" target="_blank"><img src="{% static 'core/icons/twitter.png' %}" alt="Twitter"></a>
+  </div>
+{% endif %}
+
+<button id="scrollTopBtn" title="Yukarı Çık"><i class="fas fa-arrow-up"></i></button>
+
+<script src="{% static 'core/js/script.js' %}"></script>
+<script src="https://unpkg.com/aos@next/dist/aos.js"></script>
+<script>
+    AOS.init();
+</script>
+
+<script>
+// Saf ve kesin çalışan scroll yukarı kodu
+const scrollTopBtn = document.getElementById("scrollTopBtn");
+
+scrollTopBtn.addEventListener("click", function () {
+    window.scrollTo({
+        top: 0,
+        behavior: "smooth"
+    });
+    console.log("Yukarı çıkma çalıştı");
+});
+</script>
+
+<script>
+document.addEventListener("DOMContentLoaded", function () {
+    const sidebar = document.getElementById("socialSidebar");
+    const aboutSection = document.getElementById("about");
+
+    function checkSidebarVisibility() {
+        const aboutRect = aboutSection.getBoundingClientRect();
+        const isInViewport = aboutRect.top < window.innerHeight && aboutRect.bottom > 0;
+        const isTop = window.scrollY < window.innerHeight;
+
+        if (isInViewport || isTop) {
+            sidebar.classList.add("visible");
+        } else {
+            sidebar.classList.remove("visible");
+        }
+    }
+
+    window.addEventListener("scroll", checkSidebarVisibility);
+    checkSidebarVisibility();
+});
+</script>
+<script>
+document.addEventListener('DOMContentLoaded', function () {
+    const navbar = document.querySelector('.navbar');
+    const navLinks = document.querySelectorAll('.nav-links li a');
+    const logo = document.querySelector('.logo');
+    const scrollTopBtn = document.getElementById("scrollTopBtn");
+
+    function updateNavbarTheme() {
+        const sections = document.querySelectorAll('section');
+        const scrollY = window.scrollY;
+        let currentTheme = 'dark';
+
+        sections.forEach(section => {
+            const rect = section.getBoundingClientRect();
+            const sectionTop = rect.top + window.scrollY;
+            const sectionHeight = section.offsetHeight;
+
+            if (scrollY >= sectionTop - sectionHeight / 2 && scrollY < sectionTop + sectionHeight / 2) {
+                currentTheme = section.getAttribute('data-theme');
+            }
+        });
+
+        if (currentTheme === 'light') {
+            navbar.style.backgroundColor = '#2e2b2b';
+            logo.style.color = '#f4f1de';
+            navLinks.forEach(link => link.style.color = '#f4f1de');
+            scrollTopBtn.style.backgroundColor = '#2e2b2b';
+            scrollTopBtn.style.color = '#f4f1de';
+        } else {
+            navbar.style.backgroundColor = '#f4f1de';
+            logo.style.color = '#2e2b2b';
+            navLinks.forEach(link => link.style.color = '#2e2b2b');
+            scrollTopBtn.style.backgroundColor = '#f4f1de';
+            scrollTopBtn.style.color = '#2e2b2b';
+        }
+    }
+
+    window.addEventListener('scroll', updateNavbarTheme);
+    updateNavbarTheme();
+});
+</script>
+
+
+
+</body>
+</html>

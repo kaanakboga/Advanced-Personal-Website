@@ -1,0 +1,46 @@
+{% extends 'base.html' %}
+{% block title %}{{ project.title }}{% endblock %}
+
+{% block content %}
+
+
+
+<section class="project-detail-section">
+  <div class="project-detail-container">
+
+    <!-- Başlık ve ikon -->
+    <div class="project-header">
+      {% if project.icon %}
+        <i class="fas {{ project.icon }} project-detail-icon"></i>
+      {% else %}
+        <i class="fas fa-car project-detail-icon"></i>
+      {% endif %}
+      <h1 class="project-detail-title">{{ project.title }}</h1>
+    </div>
+
+    <!-- Satır: creator - tarih - araçlar -->
+    <div class="project-meta">
+      <div class="meta-item">
+        <strong>Created by</strong><br>
+        {{ project.creator_name }}
+      </div>
+      <div class="meta-item">
+        <strong>Date</strong><br>
+        {{ project.date_range }}
+      </div>
+      <div class="meta-item">
+        <strong>Tools</strong><br>
+        {{ project.tools_used }}
+      </div>
+    </div>
+
+    <!-- Açıklama -->
+    <div class="project-description">
+      <h2>About the Project</h2>
+      <p>{{ project.description }}</p>
+    </div>
+
+  </div>
+</section>
+
+{% endblock %}
