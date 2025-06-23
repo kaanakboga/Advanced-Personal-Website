@@ -27,7 +27,8 @@ SECRET_KEY = 'django-insecure-k6izofi#pe+e^wan5bo+d*h^%h8qaw^r3vy!(9l_dnp$invtii
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['.onrender.com', 'localhost']
+
 
 
 # Application definition
@@ -159,3 +160,4 @@ REST_FRAMEWORK = {
 }
 
 CORS_ALLOW_ALL_ORIGINS = True
+STATIC_ROOT = BASE_DIR / 'staticfiles'
