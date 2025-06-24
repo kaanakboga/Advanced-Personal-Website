@@ -2,6 +2,10 @@ from django.shortcuts import render, redirect
 from django.core.mail import send_mail
 from .forms import ContactForm
 from portfolio.models import Project, Skill, Service  # Doğru yerden çekiyoruz
+from django.contrib.auth.models import User
+
+if not User.objects.filter(username='admin').exists():
+    User.objects.create_superuser('admin', 'admin@example.com', 'sifre123')
 
 
 def home(request):
