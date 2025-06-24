@@ -4,8 +4,11 @@ from .forms import ContactForm
 from portfolio.models import Project, Skill, Service  # Doğru yerden çekiyoruz
 from django.contrib.auth.models import User
 
-if not User.objects.filter(username='admin').exists():
-    User.objects.create_superuser('admin', 'admin@example.com', 'sifre123')
+try:
+    if not User.objects.filter(username='admin').exists():
+        User.objects.create_superuser('admin', 'admin@example.com', 'sifre123')
+except:
+    pass  # Migration öncesi hata verirse sessiz geçsin
 
 
 def home(request):
