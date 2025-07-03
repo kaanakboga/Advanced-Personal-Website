@@ -814,3 +814,22 @@ button:hover {
     font-size: 36px;
     margin-bottom: 10px;
 }
+
+
+.cv-button {
+    display: inline-block;
+    background: #2e2b2b;
+    color: white;
+    padding: 10px 20px;
+    border-radius: 30px;
+    text-decoration: none;
+    font-weight: bold;
+    box-shadow: 0 4px 6px rgba(0,0,0,0.2);
+    transition: 0.3s;
+    margin-top: 15px;
+}
+
+.cv-button:hover {
+    background: #382b26;
+}
+

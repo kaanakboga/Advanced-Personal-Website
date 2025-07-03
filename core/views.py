@@ -1,21 +1,23 @@
 from django.shortcuts import render, redirect
 from django.core.mail import send_mail
 from .forms import ContactForm
-from portfolio.models import Project, Skill, Service  # Doğru yerden çekiyoruz
+from portfolio.models import Project, Skill, Service
+from .models import CV
 
 def home(request):
     projects = Project.objects.all()
     skills = Skill.objects.all()
     services = Service.objects.all()
+    cv = CV.objects.first()
     form = ContactForm()
 
     return render(request, 'core/home.html', {
         'projects': projects,
         'skills': skills,
         'services': services,
+        'cv': cv,
         'form': form,
     })
-
 
 def contact_view(request):
     if request.method == 'POST':

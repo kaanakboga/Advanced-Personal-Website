@@ -5,3 +5,9 @@ class CorsAllowedOrigin(models.Model):
 
     def __str__(self):
         return self.domain
+
+class CV(models.Model):
+    file = models.FileField(upload_to='cv/')
+
+    def __str__(self):
+        return f"CV - {self.file.name}"
